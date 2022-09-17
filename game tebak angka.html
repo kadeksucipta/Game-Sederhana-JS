@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tebak Angka</title>
+    
+</head>
+<body>
+
+    <script>
+        alert('Selamat Datang di game tebak angka. Anda diminta untuk menebak angka 1 - 3 dan anda akan bermain game selama 5 ronde. Player yang berhasil menebak angka terbanyak akan menang !!');
+        let skorP1 = 0;
+        let skorP2 = 0;
+        let ronde = 1;
+        let stop = true;
+
+        while(stop){
+            let p1 = parseInt(prompt("Player 1 Silahkan Masukan Angka"));
+            let p2 = parseInt(prompt("Player 2 Silahkan Masukan Angka"));
+
+            let random = getRandom();
+            let ulangi = validasi(p1, p2);
+            if (!ulangi) {
+                stop = window.confirm("Ulangi ?");
+
+            }else{
+                if (p1 !== random && p2 !== random) {
+                    alert("Tidak ada yang Benar. Skor SERI");
+                }else{
+                    if  (p1 === random){
+                        alert("Player 1 Menang");
+                        skorP1++;
+                    }
+                    if (p2 === random){
+                        alert("Player 2 Menang");
+                        skorP2++;
+                        
+                    }
+                }
+                alert(`
+                Nilai yang Dicari ${random}
+                ---------------------------
+                -Player 1 : ${skorP1}
+                -Player 2 : ${skorP2}`);
+
+                ronde++;
+                if(ronde <= 5){
+                    stop = window.confirm("ronde" + ronde + "?");
+                }else{
+                 if (skorP1 > skorP2){
+                    alert("Good Jobs Player 1");
+                    stop = false;
+
+                 }else if (skorP1 > skorP2){
+                    alert("Good Jobs Player 1");
+                    stop = false;
+
+                 }else {
+                    alert(`Pertarungan yang cukup sengit`);
+                    ronde = 1;
+                    skorP1 = 0;
+                    skorP2 = 0;
+                    stop = window.confirm("Main ulang untuk menetukan pemenang");
+                 }
+                }
+            }
+            
+        }
+
+        function validasi(Player1, Player2){
+            if (Player1 === Player2){
+                alert("Tebakan tidak boleh sama");
+                return false;
+            }
+            if(isNaN(Player1) && isNaN(Player2)){
+                alert("Kedua Player harus menebak");
+                return true;
+            }
+            
+            if (Player1 < 1 || Player2 < 1){
+                alert("Tebakan tidak boleh kecil dari 1");
+                return false;
+            }
+            if (Player1 > 3 || Player2 > 3){
+                alert("Tebakan tidak boleh lebih besar dari 3");
+                return false;
+            }
+            
+            if (isNaN(Player1) || isNaN(Player2)){
+                alert("Salah satu Player belum menebak");
+                return false;
+            }
+                
+            return true;
+
+        }
+            
+
+        function getRandom() {
+            const range = [1, 2, 3];
+            let isNotRandom = true;
+            while (isNotRandom){
+                let random = Math.floor(Math.random() * 10);
+                let ketemu = range.find((r) => r === random);
+                if (ketemu){
+                    isNotRandom = false;
+                    return random;
+                }
+            }
+        }
+
+        console.log(getRandom());
+
+    </script>
+
+    
+</body>
+</html>
